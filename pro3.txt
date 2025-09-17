@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<body>
+<center><b><h1>String Handling and Reversing</h1></b></center>
+
+<form action="pro3.php" method="get">
+    Enter your string: <input type="text" name="CHOICE"/><br><br>
+    <input type="submit" value="Submit"/><br>
+</form>
+
+<?php
+if (isset($_GET["CHOICE"]) && $_GET["CHOICE"] !== "") {
+    $n = $_GET["CHOICE"];
+
+    function analyzeString($n) {
+        $upper = 0;
+        $lower = 0;
+        $number = 0;
+        $special = 0;
+
+        for ($i = 0; $i < strlen($n); $i++) {
+            if (ctype_upper($n[$i])) {
+                $upper++;
+            } elseif (ctype_lower($n[$i])) {
+                $lower++;
+            } elseif (ctype_digit($n[$i])) {
+                $number++;
+            } else {
+                $special++;
+            }
+        }
+
+        echo "Uppercase letters: " . $upper . "<br>";
+        echo "Lowercase letters: " . $lower . "<br>";
+        echo "Numbers: " . $number . "<br>";
+        echo "Special characters: " . $special . "<br>";
+        echo "Reversed string: " . strrev($n) . "<br>";
+    }
+
+    analyzeString($n);
+}
+?>
+</body>
+</html>
+
