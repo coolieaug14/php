@@ -1,0 +1,42 @@
+<?php
+date_default_timezone_set("Asia/Kolkata");
+
+// Last visit cookie check
+$lastVisit = $_COOKIE["lastVisit"] ?? "This is your first visit!";
+
+// Save current visit time (for next reload)
+setcookie("lastVisit", date("Y-m-d H:i:s"), time() + 365*24*60*60);
+?>
+<!DOCTYPE html>
+<html>
+<head>
+   <title>PSG College of Arts & Science</title>
+   <style>
+      body { font-family: Arial, sans-serif; margin: 0; }
+      .navbar { background: gray; color: white; padding: 10px; }
+      .navbar a { color: yellow; margin: 0 10px; text-decoration: none; }
+      .content { text-align: center; padding: 20px; }
+      .lastvisit { color: red; }
+   </style>
+</head>
+<body>
+   <!-- Navigation -->
+   <div class="navbar">
+      <b>PSG COLLEGE OF ARTS & SCIENCE</b>
+      <span style="float:right;">
+         <a href="admissions.php">Admissions</a> |
+         <a href="index.php">Home</a> |
+         <a href="programmes.php">Programs</a> |
+         <a href="about.php">About</a>
+      </span>
+   </div>
+
+   <!-- Content -->
+   <div class="content">
+      <h2>WELCOME TO PSG COLLEGE OF ARTS & SCIENCE</h2>
+      <p>Explore our wide range of academic programs, state-of-the-art facilities and diverse student community.</p>
+      <p class="lastvisit">Your last visited on this page: <b><?php echo $lastVisit; ?></b></p>
+      <img src="college.jpg" alt="College Image" width="70%">
+   </div>
+</body>
+</html>
