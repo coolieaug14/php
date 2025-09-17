@@ -1,0 +1,128 @@
+
+<html>
+<body>
+<marquee><b><h1>File Handling methods</h1></b></marquee>
+<form action ="pro2.php" method ="get"> 1.FILE CREATE<BR>
+    FILE READ<BR>
+    FILE APPEND<BR>
+    FILE COPY<BR>
+    FILE DELETE<BR>
+    ENTER YOUR CHOICE<input type="text" name="CHOICE"/><BR>
+<input type="submit" name="visit"/><br>
+<?php
+$n=$_GET["CHOICE"];
+switch($n)
+{
+case 1:
+echo "FILE CREATION";
+$var=fopen("sample1.txt","w");
+$a="hello php"; fwrite($var,$a); echo "<br>"; break;
+case 2:
+echo "FILE READ";
+$var=fopen("sample1.txt",'r'); echo fgets($var);
+fseek($var,0);
+$count=1;
+while(!feof($var))
+{
+echo '[',$count,']',fgets($var),'<br>';
+$count++;
+}
+echo '<br>Total lines in the file: ',$count-1;
+fclose($var);
+
+echo"<br>"; break;
+case 3:
+echo "FILE APPENDED";
+$var=fopen("sample1.txt",'a+');
+$txt="HELLO PROGRAMMER";
+fwrite($var,$txt); fseek($var,0);
+echo '<br>';
+$f1=fread($var,filesize('sample1.txt')); var_dump($f1);
+fclose($var); echo "<br>"; break;
+
+case 4:
+echo "FILE COPY";
+copy('ex2a.php','file.php'); echo "<pre>";
+echo "File copied successfully!"; echo "</pre>";
+break; case 5;
+echo "FILE DELETE";
+if(!unlink("sample1.txt"))
+{
+echo "File couldnot be deleted";
+}
+else
+{
+echo "File deleted";
+}
+break;
+}
+?>
+</form>
+</body>
+</html>
+
+
+<html>
+<body>
+<h1><center>STRING, MATH AND DATE METHODS</center></h1>
+
+<form action="pro3.php" method="get">
+    1. STRING FUNCTIONS<br>
+    2. DATE FUNCTIONS<br>
+    3. MATH FUNCTIONS<br>
+    ENTER YOUR CHOICE: <input type="number" name="CHOICE"><br>
+    <input type="submit" value="Submit"><br>
+</form>
+
+<?php
+if (isset($_GET["CHOICE"])) {
+    $n = (int)$_GET["CHOICE"];
+
+    switch ($n) {
+        case 1:
+            echo "<b>STRING FUNCTIONS</b><br>";
+            $string = " basic functiOn ";
+            echo strtoupper($string) . "<br>";
+            echo ucfirst($string) . "<br>";
+            echo strrev($string) . "<br>";
+            echo rtrim($string) . "<br>";
+            echo ltrim($string) . "<br>";
+            echo strtolower($string) . "<br>";
+            echo str_repeat($string, 3) . "<br>";
+            echo str_replace("Basic", "Elementary", "Basic functions") . "<br>";
+            break;
+
+        case 2:
+            echo "<b>DATE FUNCTIONS</b><br>";
+            date_default_timezone_set("Asia/Kolkata");
+            echo "Day: " . date("d") . "<br>";
+            echo "Month: " . date("m") . "<br>";
+            echo "Year: " . date("Y") . "<br>";
+            echo "Full Date: " . date("d-m-Y") . "<br>";
+            echo "Time: " . date("h:i:s A") . "<br>";
+            break;
+
+        case 3:
+            echo "<b>MATH FUNCTIONS</b><br>";
+            $m1 = 95.5;
+            $m2 = 96.3;
+            $m3 = 90.65;
+            $m4 = 91.56;
+            $m5 = 85.6;
+            $p = -95.4;
+
+            echo floor($m1) . "<br>";
+            echo floor($m2) . "<br>";
+            echo floor($m3) . "<br>";
+            echo floor($m4) . "<br>";
+            echo floor($m5) . "<br>";
+            echo "Absolute value of $p: " . abs($p) . "<br>";
+            break;
+
+        default:
+            echo "Enter the correct choice (1–3)";
+    }
+}
+?>
+</body>
+</html>
