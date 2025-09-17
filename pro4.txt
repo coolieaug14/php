@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1><marquee>PHP PROGRAM FOR REQUIRED FIELD VALIDATOR</marquee></h1>
+
+<?php
+$name = $email = $password = "";
+$nameErr = $emailErr = $passwordErr = "";
+
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Name validation
+    if (empty($_POST["name"])) {
+        $nameErr = "Name is required";
+    } elseif (!preg_match("/^[a-zA-Z]*$/", $_POST["name"])) {
+        $nameErr = "Only letters allowed";
+    } else {
+        $name = test_input($_POST["name"]);
+    }
+
+    // Email validation
+    if (empty($_POST["email"])) {
+        $emailErr = "Email is required";
+    } elseif (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+        $emailErr = "Invalid email format";
+    } else {
+        $email = test_input($_POST["email"]);
+    }
+
+    // Password validation
+    if (empty($_POST["password"])) {
+        $passwordErr = "Password is required";
+    } elseif (!preg_match("/^(?=.*[!@#$%^&_])(?=.*[0-9])(?=.*[A-Z]).{7,}$/", $_POST["password"])) {
+        $passwordErr = "Password must have 1 uppercase, 1 number, 1 special char, min 7 chars";
+    } else {
+        $password = test_input($_POST["password"]);
+    }
+}
+?>
+
+<form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+    NAME: <input type="text" name="name" value="<?php echo $name; ?>">
+    <span style="color:red">*<?php echo $nameErr; ?></span><br><br>
+
+    EMAIL: <input type="text" name="email" value="<?php echo $email; ?>">
+    <span style="color:red">*<?php echo $emailErr; ?></span><br><br>
+
+    PASSWORD: <input type="password" name="password">
+    <span style="color:red">*<?php echo $passwordErr; ?></span><br><br>
+
+    <input type="submit" value="Submit">
+</form>
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !$nameErr && !$emailErr && !$passwordErr) {
+    echo "<h3>Form Submitted Successfully!</h3>";
+    echo "Name: $name<br>Email: $email<br>Password: $password";
+}
+?>
+</body>
+</html>
